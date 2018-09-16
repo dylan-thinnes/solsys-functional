@@ -24,9 +24,11 @@ To produce the object file for hook.c, we compile it with the relevant
 libraries, and make sure to include headers from ./msieve/include:
 $ gcc -Wall hook.c msieve/libmsieve.a -lgmp -lm -lpthread -ldl -c -Imsieve/include
 
-STEP 3: Compile Factor.hs with foreign C code
-Use the following function to produce an object file for Factor.hs which can be
-used from other Haskell code. Any code that depends on Factor.hs will need to
-include the hook.o and msieve/libmsieve.a functions as well.
-$ stack ghc Factor.hs hook.o msieve/libmsieve.a
-$ stack ghc main.hs hook.o msieve/libmsieve.a
+STEP 3: Compile with foreign C code
+src/Factor.hs provides the Haskell bindings to use hook.c. Whenever including
+it in a module definition, you must include the hook.o and libmsieve.a files
+while compiling. Examples follow:
+$ ghc src/Factor.hs hook.o msieve/libmsieve.a
+$ ghc src/main.hs hook.o msieve/libmsieve.a
+
+These flags can be configured in your cabal file.
