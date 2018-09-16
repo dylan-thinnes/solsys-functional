@@ -23,4 +23,4 @@ cabal.project.local~
 .ghc.environment.*
 
 # Personal customization
-backend/msieve-*/
+backend/msieve*/
