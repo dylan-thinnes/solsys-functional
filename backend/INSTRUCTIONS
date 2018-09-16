@@ -1,0 +1,24 @@
+STEP 0: Object files for msieve
+Compile msieve's .a file (containing all .o files we need to link against)
+by running the following command in ./msieve: 
+$ make all <options...>
+
+You can customize the options depending on which libraries you have on your
+system. Use `make` to see what options are available.
+
+STEP 1: Object files for hook.c
+hook.c provides the factor_number function, which takes a string representing
+the number to factor, and returns the number's factors as a string.
+This string can be read by Haskell as a list of integers, e.g. the return
+string for "15" is "[3,5]".
+
+To produce the object file for hook.c, we compile it with the relevant
+libraries, and make sure to include headers from ./msieve/include:
+$ gcc -Wall hook.c msieve/libmsieve.a -lgmp -lm -lpthread -ldl -c -Imsieve/include
+
+STEP 2: Compile Factor.hs with foreign C code
+Use the following function to produce an object file for Factor.hs which can be
+used from other Haskell code. Any code that depends on Factor.hs will need to
+include the hook.o and msieve/libmsieve.a functions as well.
+$ stack ghc Factor.hs hook.o msieve/libmsieve.a
+$ stack ghc main.hs hook.o msieve/libmsieve.a
