@@ -1,2 +1,2 @@
 # solsys-functional
-SolSys, Rewritten using Functional Programming
+SolSys, Rewritten Using Functional Programming
