@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdint.h>
-#include "hook.h"
 #include <msieve.h>
 #include <malloc.h>
 #include <string.h>
