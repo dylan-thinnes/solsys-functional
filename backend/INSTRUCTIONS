@@ -1,6 +1,8 @@
 All paths in this INSTRUCTION file are relative to the directory in which the
 file resides.
 
+=== COMPILING MSIEVE WRAPPER ===
+
 STEP 0: Extract msieve
 A .tar.gz of msieve 1.53 has been provided. Extract this to ./msieve.
 Alternately, download you own copy, though I cannot guarantee this version will
@@ -24,11 +26,55 @@ To produce the object file for hook.c, we compile it with the relevant
 libraries, and make sure to include headers from ./msieve/include:
 $ gcc -Wall hook.c msieve/libmsieve.a -lgmp -lm -lpthread -ldl -c -Imsieve/include
 
-STEP 3: Compile with foreign C code
+STEP 3: Compile Haskell library
 src/Factor.hs provides the Haskell bindings to use hook.c. Whenever including
 it in a module definition, you must include the hook.o and libmsieve.a files
-while compiling. Examples follow:
+while compiling.
 $ ghc src/Factor.hs hook.o msieve/libmsieve.a
+
+If main.hs imports Factor.hs,
 $ ghc src/main.hs hook.o msieve/libmsieve.a
 
-These flags can be configured in your cabal file.
+=== COMPILING PRIMECOUNT WRAPPER ===
+
+STEP 0: Get a copy of kimwalisch/primecount
+The glue code in step 1 was created with version 4.4. Support for other
+versions is completely unknown.
+
+STEP 1: Compile kimwalisch/primecount as a shared library.
+* NOTE: Oddly enough, I'd expect the libprimecount.a file to link fine, but GHC
+* cannot read the identifiers out of it. If anyone can help with this, please
+* submit an issue or PR.
+We must create a shared object file which we can link against with GHC.
+$ cmake . -DBUILD_SHARED_LIBS=ON
+$ make
+
+STEP 2: Compile the glue code.
+The glue to provide pi externally in a C style is defined as pi_extern in
+./glue.cc. Compile it into an object file with the following command:
+$ g++ glue.cc -c
+
+STEP 3: Link and compile the Primecount.hs module
+The Primecount module exports a function called pix, which calculates the
+number of primes up to a given Integer n.
+Compile it while linking against the relevant object files:
+$ ghc src/Primecount.hs -lgomp -lstdc++ -Iprimecount/include primecount/libprimecount.so glue.o -optl-fexceptions
+
+Any produced executables using Primecount will need to have access to the
+shared object file at primecount/libprimecount.so. The executable will search
+in predefined paths in your system, as well as on any paths defined in the
+LD_LIBRARY_PATH environment variable
+
+=== COMPILING LOGINT WRAPPER ===
+STEP 0: Compile li.cpp
+The logint function is defined in and exported from li.cpp. Compile it to an
+object file with the following command:
+$ g++ li.cpp -lmpfr -c
+
+Make sure to have MPFR installed.
+
+STEP 1: Link and compile the Logint module
+The Logint module exports a single function, logint, which calculates the
+logarithmic integral of a given Integer.
+Compile it as follows:
+$ ghc src/Logint.hs li.o -lstdc++ -lmpfr
