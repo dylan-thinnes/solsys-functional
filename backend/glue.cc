@@ -1,6 +1,5 @@
 #include <primecount.hpp>
 #include <string>
-#include "test.h"
 
 extern "C" {
     const char * pi_extern(char * input) {
