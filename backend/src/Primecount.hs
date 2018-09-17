@@ -1,5 +1,7 @@
 {-# LANGUAGE ForeignFunctionInterface #-}
 
+module Primecount (pix) where
+
 import Foreign.C
 import System.Environment (getArgs)
 
