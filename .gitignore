@@ -25,3 +25,7 @@ cabal.project.local~
 # Personal customization
 backend/msieve*/
 backend/primecount*/
+
+# Ignore Vim backup files
+*.swp
+*.swo
