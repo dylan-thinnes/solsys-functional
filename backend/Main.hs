@@ -1,6 +1,6 @@
 module Main where
 
-import Primes.Factor
+import Primes.Factorization
 import Primes.Primecount
 import Primes.Logint
 
@@ -20,7 +20,7 @@ main = do
     then do
         let n = read (args !! 0)
         putStrLn $ "Number to process: " ++ show n
-        let f = factor n
+        let f = factorize n
         putStrLn $ "Factors: " ++ show f
         let p = pix    n
         putStrLn $ "Pi(x): " ++ show p
