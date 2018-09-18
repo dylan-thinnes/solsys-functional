@@ -1,6 +1,6 @@
 {-# LANGUAGE ForeignFunctionInterface #-}
 
-module Primes.Primecount (pix) where
+module Primes.Pix (pix) where
 
 import Data.Char (isDigit)
 import Foreign.C

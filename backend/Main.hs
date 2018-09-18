@@ -1,7 +1,7 @@
 module Main where
 
 import Primes.Factorization
-import Primes.Primecount
+import Primes.Pix
 import Primes.Logint
 
 import System.Environment (getArgs)
