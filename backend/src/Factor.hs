@@ -5,11 +5,11 @@ module Factor (factor) where
 import Foreign.C.String
 import System.IO.Unsafe
 
-foreign import ccall "test.h factor_integer" factor_msieve :: CString -> IO CString
+foreign import ccall "test.h factor_integer" factor_msieve :: CString -> CString
 
-factor :: Integer -> IO [Integer]
-factor i = do
+factor :: Integer -> [Integer]
+factor i = unsafePerformIO $ do
     cs <- newCString $ show i
-    hs <- (factor_msieve cs >>= peekCString)
+    hs <- peekCString $ factor_msieve cs
     let factors = read hs :: [Integer]
     return factors

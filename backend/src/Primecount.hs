@@ -3,13 +3,13 @@
 module Primecount (pix) where
 
 import Foreign.C
-import System.Environment (getArgs)
+import System.IO.Unsafe
 
-foreign import ccall "pi_extern" pi_primecount :: CString -> IO CString
+foreign import ccall "pi_extern" pi_primecount :: CString -> CString
 
-pix :: Integer -> IO Integer
-pix i = do
+pix :: Integer -> Integer
+pix i = unsafePerformIO $ do
     cs <- newCString $ show i
-    hs <- (pi_primecount cs >>= peekCString)
+    hs <- peekCString $ pi_primecount cs
     let res = read hs :: Integer
     return res

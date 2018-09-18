@@ -5,11 +5,11 @@ module Logint (logint) where
 import Foreign.C.String
 import System.IO.Unsafe
 
-foreign import ccall "logint" logint_c :: CString -> IO CString
+foreign import ccall "logint" logint_c :: CString -> CString
 
-logint :: Integer -> IO Integer
+logint :: Integer -> Integer
 logint i = unsafePerformIO $ do
     cs <- newCString $ show i
-    hs <- (logint_c cs >>= peekCString)
+    hs <- peekCString $ logint_c cs
     let res = read hs :: Integer
     return res
