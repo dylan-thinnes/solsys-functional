@@ -23,8 +23,8 @@ cabal.project.local~
 .ghc.environment.*
 
 # Personal customization
-backend/msieve*/
-backend/primecount*/
+backend/Primes/msieve*/
+backend/Primes/primecount*/
 
 # Ignore Vim backup files
 *.swp
