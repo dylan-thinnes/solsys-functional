@@ -58,7 +58,7 @@ STEP 3: Link and compile the Primecount.hs module
 The Primecount module exports a function called pix, which calculates the
 number of primes up to a given Integer n.
 Compile it while linking against the relevant object files:
-$ ghc src/Primecount.hs -lgomp -lstdc++ -Iprimecount/include primecount/libprimecount.so glue.o -optl-fexceptions
+$ ghc src/Primecount.hs -lgomp -lstdc++ primecount/libprimecount.so glue.o -optl-fexceptions
 
 Any produced executables using Primecount will need to have access to the
 shared object file at primecount/libprimecount.so. The executable will search
