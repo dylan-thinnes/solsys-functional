@@ -1,6 +1,6 @@
 {-# LANGUAGE ForeignFunctionInterface #-}
 
-module Primecount (pix) where
+module Primes.Primecount (pix) where
 
 import Foreign.C
 import System.IO.Unsafe

@@ -1,6 +1,6 @@
 {-# LANGUAGE ForeignFunctionInterface #-}
 
-module Factor (factor) where
+module Primes.Factor (factor) where
 
 import Foreign.C.String
 import System.IO.Unsafe

@@ -1,6 +1,6 @@
 {-# LANGUAGE ForeignFunctionInterface #-}
 
-module Logint (logint) where
+module Primes.Logint (logint) where
 
 import Foreign.C.String
 import System.IO.Unsafe
