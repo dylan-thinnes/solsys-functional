@@ -78,3 +78,9 @@ The Logint module exports a single function, logint, which calculates the
 logarithmic integral of a given Integer.
 Compile it as follows:
 $ ghc src/Logint.hs li.o -lstdc++ -lmpfr
+
+=== LINKING EVERYTHING ===
+If you have a main file, such as ./Main.hs, which imports all of these modules,
+the necessary object files for ghc in all object files must be included.
+The command that compiles main.hs while including them all is as follows:
+$ stack ghc -- Main.hs -lgomp -lstdc++ -lmpfr -lgmp Primes/hook.o Primes/msieve/libmsieve.a Primes/primecount/libprimecount.so Primes/glue.o Primes/li.o -optl-fexception
