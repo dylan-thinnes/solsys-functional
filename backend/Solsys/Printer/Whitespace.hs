@@ -12,3 +12,20 @@ Which is shortened to
  +
  -
 -}
+
+module Solsys.Printer.Whitespace (convert) where
+
+import Solsys.Planets
+
+planetTypeToShorthand :: PlanetType -> String
+planetTypeToShorthand Positive = "+"
+planetTypeToShorthand Negative = "-"
+planetTypeToShorthand Neutral  = "0"
+
+toWhitespaceLines :: Planet -> [String]
+toWhitespaceLines (Planet t cs) = (planetTypeToShorthand t) : map ((" "++)) (concatMap toWhitespaceLines cs)
+
+toWhitespace :: Planet -> String
+toWhitespace = unlines . toWhitespaceLines
+
+convert = toWhitespace
