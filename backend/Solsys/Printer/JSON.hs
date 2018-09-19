@@ -1,5 +1,5 @@
 -- Pretty printing of Solsys modules to different formats
-module Solsys.Print where
+module Solsys.Printer.JSON where
 
 import Solsys.Planets
 
