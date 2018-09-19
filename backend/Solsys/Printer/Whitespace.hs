@@ -26,6 +26,6 @@ toWhitespaceLines :: Planet -> [String]
 toWhitespaceLines (Planet t cs) = (planetTypeToShorthand t) : map ((" "++)) (concatMap toWhitespaceLines cs)
 
 toWhitespace :: Planet -> String
-toWhitespace = unlines . toWhitespaceLines
+toWhitespace = init . unlines . toWhitespaceLines
 
 convert = toWhitespace
