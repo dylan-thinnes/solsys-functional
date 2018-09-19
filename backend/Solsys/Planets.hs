@@ -1,4 +1,4 @@
-module Solsys.Planets (Planet (..), PlanetType, rootPlanet, toPlanet) where
+module Solsys.Planets (Planet (..), PlanetType (Positive, Negative, Neutral), rootPlanet, toPlanet) where
 
 import Primes.Factorization
 import Primes.Pix
