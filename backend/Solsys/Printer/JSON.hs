@@ -1,4 +1,4 @@
--- Pretty printing of Solsys modules to different formats
+-- Pretty printing of Solsys modules to JSON format
 module Solsys.Printer.JSON where
 
 import Solsys.Planets
