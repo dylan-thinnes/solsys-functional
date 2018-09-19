@@ -8,6 +8,7 @@ import Primes.Pix
 import Primes.Logint
 
 import Data.List
+import Control.Concurrent.Async
 
 data RFactor = 
     RFactor { -- Original value that was factored
@@ -18,14 +19,17 @@ data RFactor =
               nthprime     :: Integer
             } deriving Show
 
--- Constructing an RFactor out of an Integer
+-- Efficiently constructing an RFactor out of an Integer
 
-toRFactor :: Integer -> RFactor
-toRFactor i = RFactor v f n
-    where
-    v = i
-    f = collectPowers $ exceptPrimes $ factorize i 
-    n = (if abovePixThreshold i then logint i else pix i) - (if length f > 0 then 0 else 1)
+toRFactor :: Integer -> IO RFactor
+toRFactor i | i < 2 = return $ RFactor i [] 0
+            | otherwise = do
+    let facAsync = return $ (collectPowers $ exceptPrimes $ factorize i)
+    let pixAsync = return $ (if abovePixThreshold i then logint i else pix i)
+    (fac, pix) <- concurrently facAsync pixAsync
+    let f = fac
+    let n = pix - (if length fac > 0 then 0 else 1)
+    return $ RFactor i f n
 
 -- If the list of factors is of length 1, the factored number is prime and can
 -- be excluded from the list of prime factors
