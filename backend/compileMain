@@ -1,0 +1,2 @@
+#!/bin/bash
+stack ghc -- Main.hs -lgomp -lstdc++ -lmpfr -lgmp Primes/hook.o Primes/msieve/libmsieve.a Primes/primecount/libprimecount.so Primes/glue.o Primes/li.o -optl-fexceptions
