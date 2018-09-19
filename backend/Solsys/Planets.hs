@@ -25,7 +25,7 @@ toPlanet t 1 = return $ Planet t []
 toPlanet t power = do
     -- Get factors and their pi(x) values
     let fs = frequencies . factorize $ power
-    pis <- mapConcurrently (return . pix . fst) fs
+    pis <- mapConcurrently (return . conditionalPix . fst) fs
 
     -- Build the positives as triples (value, power, pix)
     let unbuiltPositives = zipWith (\(a,b) c -> (a,b,c)) fs pis
@@ -65,6 +65,8 @@ exceptPrimes xs = xs
 
 -- Determining if the number should be calculated using Logarithmic Integral
 -- instead of Pi(x)
+conditionalPix :: Integer -> Integer
+conditionalPix ii = if abovePixThreshold ii then logint ii else pix ii
 
 abovePixThreshold :: Integer -> Bool
 abovePixThreshold i = i > pixThreshold
