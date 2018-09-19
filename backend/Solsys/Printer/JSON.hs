@@ -1,5 +1,5 @@
 -- Pretty printing of Solsys modules to JSON format
-module Solsys.Printer.JSON where
+module Solsys.Printer.JSON (convert) where
 
 import Solsys.Planets
 
@@ -28,6 +28,8 @@ planetToJSON (Planet t cs) =
     JO [("type", planetTypeToJSON t)
        ,("children", JA $ map planetToJSON cs)
        ]
+
+convert = planetToJSON
 
 instance Show JSON where
     show (JO kvs) = "{" ++ (concat . intersperse "," . map showKv $ kvs) ++ "}"
