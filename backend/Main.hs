@@ -22,8 +22,6 @@ main = do
         let n = read (args !! 0)
         let p = rootPlanet n
         putStrLn $ show $ convert p
-
-        return ()
     else do
         r <- randomRIO (10 ^ 49, 10 ^ 50) :: IO Integer
         sign <- randomRIO (0, 1) >>= return . ([-1,1] !!) :: IO Integer
@@ -33,4 +31,4 @@ main = do
         let p = rootPlanet n
         putStrLn $ show $ convert p
 
-        return ()
+    return ()
