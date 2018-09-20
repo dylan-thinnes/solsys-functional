@@ -86,3 +86,8 @@ the necessary object files for ghc in all object files must be included.  The
 command that compiles main.hs while including them all, assuming the object
 files are in the same place as their source, is as follows:
 $ stack ghc -- Main.hs -lgomp -lstdc++ -lmpfr -lgmp Primes/glue/msieve/glue.o Primes/msieve/libmsieve.a Primes/primecount/libprimecount.so Primes/glue/primecount/glue.o Primes/logint/li.o -optl-fexceptions
+
+To execute the resulting Main, include the required primecount shared library
+on its path. One way to do this is using LD_LIBRARY_PATH, as noted in the
+Primecount section.
+$ LD_LIBRARY_PATH=Primes/primecount/ ./Main
