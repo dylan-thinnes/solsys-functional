@@ -1,0 +1,12 @@
+#!/bin/bash
+if [ "$1" = "-h" ]; then
+    echo "Usage: Compiles logint.cpp code."
+    echo "    compile-logint -h"
+    echo "    compile-logint"
+    echo "Flags:"
+    echo "    -h: Print help screen."
+else
+    cd ./Primes/logint
+    g++ li.cpp -lmpfr -c
+    cd "../.."
+fi
