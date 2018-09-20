@@ -1,6 +1,6 @@
 #!/bin/bash
 if [ "$1" = "-h" ]; then
-    echo "Usage: Compiles hook.c code for msieve, and makes msieve itself it it hasn't been compiled yet."
+    echo "Usage: Compiles glue code for msieve, and makes msieve itself it it hasn't been yet."
     echo "    compile-msieve -h"
     echo "    compile-msieve -r"
     echo "Flags:"
