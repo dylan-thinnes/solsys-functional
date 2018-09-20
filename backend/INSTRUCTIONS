@@ -82,6 +82,7 @@ $ ghc Primes/Logint.hs Primes/logint/li.o -lstdc++ -lmpfr
 
 === LINKING EVERYTHING ===
 If you have a main file, such as ./Main.hs, which imports all of these modules,
-the necessary object files for ghc in all object files must be included.
-The command that compiles main.hs while including them all is as follows:
+the necessary object files for ghc in all object files must be included.  The
+command that compiles main.hs while including them all, assuming the object
+files are in the same place as their source, is as follows:
 $ stack ghc -- Main.hs -lgomp -lstdc++ -lmpfr -lgmp Primes/glue/msieve/glue.o Primes/msieve/libmsieve.a Primes/primecount/libprimecount.so Primes/glue/primecount/glue.o Primes/logint/li.o -optl-fexceptions
