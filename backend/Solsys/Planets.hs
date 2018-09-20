@@ -5,6 +5,7 @@ import Primes.Pix
 import Primes.Logint
 
 import Control.Concurrent.Async
+import System.IO.Unsafe
 import Data.List
 
 data PlanetType = Positive | Negative | Neutral deriving Show
@@ -17,12 +18,14 @@ data Planet = Planet
 mapPair :: (a -> b) -> (a, a) -> (b, b)
 mapPair f (a, b) = (f a, f b)
 
-rootPlanet :: Integer -> IO Planet
-rootPlanet = toPlanet Positive
+rootPlanet :: Integer -> Planet
+rootPlanet x | x == 0    = Planet Neutral []
+             | x < 0     = toPlanet Negative x
+             | otherwise = toPlanet Positive x
 
-toPlanet :: PlanetType -> Integer -> IO Planet
-toPlanet t 1 = return $ Planet t []
-toPlanet t power = do
+toPlanet :: PlanetType -> Integer -> Planet
+toPlanet t 1 = Planet t []
+toPlanet t power = unsafePerformIO $ do
     -- Get factors and their pi(x) values
     let fs = frequencies . factorize $ power
     pis <- mapConcurrently (return . conditionalPix . fst) fs
@@ -35,7 +38,7 @@ toPlanet t power = do
     -- Turn the triples into pairs of (PlanetType, power)
     let builtChildren = map buildPlanet unbuiltChildren
     -- Mapping toPlanet with curried data constructors over the pairs
-    children <- mapConcurrently (uncurry toPlanet) builtChildren
+    children <- mapConcurrently (return . uncurry toPlanet) builtChildren
 
     -- Return everything correctly
     return $ Planet t children
