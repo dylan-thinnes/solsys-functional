@@ -10,8 +10,8 @@ import System.IO          (hPutStrLn, stderr)
 import System.Random      (randomRIO)
 
 isInteger :: String -> Bool
---isInteger = not . null . (reads :: ReadS Integer)
-isInteger = all isDigit
+isInteger = not . null . (reads :: ReadS Integer)
+--isInteger = all isDigit
 
 main :: IO ()
 main = do

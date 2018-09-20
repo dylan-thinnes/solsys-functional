@@ -20,7 +20,7 @@ mapPair f (a, b) = (f a, f b)
 
 rootPlanet :: Integer -> Planet
 rootPlanet x | x == 0    = Planet Neutral []
-             | x < 0     = toPlanet Negative x
+             | x < 0     = toPlanet Negative (abs x)
              | otherwise = toPlanet Positive x
 
 toPlanet :: PlanetType -> Integer -> Planet
