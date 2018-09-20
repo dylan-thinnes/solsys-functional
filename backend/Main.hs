@@ -1,7 +1,7 @@
 module Main where
 
-import Primes.Factorization
-import Primes.Pix
+import Solsys.Planets
+import Solsys.Printer.JSON (convert)
 import Primes.Logint
 
 import System.Environment (getArgs)
@@ -19,13 +19,8 @@ main = do
            ]
     then do
         let n = read (args !! 0)
-        putStrLn $ "Number to process: " ++ show n
-        let f = factorize n
-        putStrLn $ "Factors: " ++ show f
-        let p = pix    n
-        putStrLn $ "Pi(x): " ++ show p
-        let l = logint n
-        putStrLn $ "Li(x): " ++ show l
+        let p = rootPlanet n
+        putStrLn $ show $ convert p
 
         return ()
     else do
