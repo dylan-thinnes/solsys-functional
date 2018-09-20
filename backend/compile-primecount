@@ -1,0 +1,27 @@
+#!/bin/bash
+if [ "$1" = "-h" ]; then
+    echo "Usage: Compiles glue code for primecount, and makes primecount itself it it hasn't been compiled yet."
+    echo "    compile-primecount -h"
+    echo "    compile-primecount -r"
+    echo "Flags:"
+    echo "    -h: Print help screen."
+    echo "    -r: Recompile primecount library."
+else
+    cd ./Primes
+    if [ ! -d "./primecount" ] || [ "$1" = "-r" ]; then
+        if [ -d "./primecount" ]; then rm -rf ./primecount; fi
+
+        git clone https://github.com/kimwalisch/primecount
+        cd "primecount"
+        git reset --hard b8c8e2c77a0222058331d3080a0c1922965ef1bc
+
+        cmake . -DBUILD_SHARED_LIBS=ON
+        make
+        
+        cd ".."
+    fi
+    cd glue/primecount
+    g++ glue.cc -c
+    cd "../.."
+    cd ".."
+fi
