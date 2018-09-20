@@ -61,7 +61,7 @@ char * factor_integer(char *buf) {
     get_cache_sizes(&cache_size1, &cache_size2);
 
 	g_curr_factorization = msieve_obj_new(buf, 0,
-					NULL, NULL,
+					"/tmp/msieve.dat", NULL,
 					NULL,
 					seed1, seed2, 0,
 					cpu, cache_size1, cache_size2,
