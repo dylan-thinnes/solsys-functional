@@ -16,6 +16,6 @@ else
         make all NO_ZLIB=1
         cd ".."
     fi
-    gcc -Wall hook.c msieve/libmsieve.a -lgmp -lm -lpthread -ldl -c -Imsieve/include
+    gcc -Wall glue/msieve/glue.c msieve/libmsieve.a -lgmp -lm -lpthread -ldl -c -Imsieve/include
     cd ".."
 fi
