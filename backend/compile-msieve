@@ -1,0 +1,21 @@
+#!/bin/bash
+if [ "$1" = "-h" ]; then
+    echo "Usage: Compiles hook.c code for msieve, and makes msieve itself it it hasn't been compiled yet."
+    echo "    compile-msieve -h"
+    echo "    compile-msieve -r"
+    echo "Flags:"
+    echo "    -h: Print help screen."
+    echo "    -r: Recompile msieve library."
+else
+    cd ./Primes
+    if [ ! -d "./msieve" ] || [ "$1" = "-r" ]; then
+        if [ -d "./msieve" ]; then rm -r ./msieve; fi
+        tar -xzf ./msieve153_src.tar.gz
+        mv "./msieve-1.53" "./msieve"
+        cd "./msieve"
+        make all NO_ZLIB=1
+        cd ".."
+    fi
+    gcc -Wall hook.c msieve/libmsieve.a -lgmp -lm -lpthread -ldl -c -Imsieve/include
+    cd ".."
+fi
