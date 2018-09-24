@@ -1,2 +1,2 @@
 #!/bin/bash
-LD_LIBRARY_PATH=Primes/primecount ./Main $1
+LD_LIBRARY_PATH=Primes/primecount ./Main $1 $2
