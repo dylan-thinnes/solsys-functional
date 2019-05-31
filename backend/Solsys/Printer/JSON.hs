@@ -1,3 +1,4 @@
+{-# LANGUAGE RecordWildCards #-}
 -- Pretty printing of Solsys modules to JSON format
 module Solsys.Printer.JSON (convert) where
 
@@ -38,3 +39,38 @@ instance Show JSON where
     show (JA vs)  = "[" ++ (concat . intersperse "," . map show $ vs) ++ "]"
     show (JS s) = show s
     show (JI i) = show i
+
+data ScaleWidth = ScaleWidth
+    { scale :: Double
+    , width :: Double
+    , planet :: Planet
+    , subannotations :: [OrbitRadius]
+    } deriving Show
+
+data OrbitRadius = OrbitRadius
+    { orbitRadius :: Double
+    , scaleWidth :: ScaleWidth
+    } deriving Show
+
+type Annotation = OrbitRadius
+
+scaling, spacing :: Double
+scaling = 0.9
+spacing = 0.1
+
+annotate :: Planet -> Annotation
+annotate = OrbitRadius 0 . f 1 
+    where
+    f :: Double -> Planet -> ScaleWidth
+    f scale planet@(Planet{..})
+        = ScaleWidth scale finalWidth planet $ reverse subannotations
+        where
+        scaleWidthChildren = map (f $ scale * scaling) children
+        initialWidth = 1 + 2 * fromIntegral (length children) * spacing
+        (subannotations, _, finalWidth) 
+            = foldl assignOrbitRadii ([], 0.5, initialWidth) scaleWidthChildren
+        assignOrbitRadii (siblings, radius, total) planet
+            = (OrbitRadius (scale * (radius + spacing + scaling * width planet / 2)) planet : siblings
+              ,radius + spacing + scaling * width planet
+              ,2 * scaling * width planet + total
+              )
