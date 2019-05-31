@@ -37,6 +37,17 @@ planetToJSON (Planet t cs) =
        ,("children", JA $ map planetToJSON cs)
        ]
 
+annotationToJSON :: Annotation -> JSON
+annotationToJSON (OrbitRadius orbitRadius (ScaleWidth{..}))
+    = mergeObjects metadata planetJSON
+    where
+    metadata = JO [("orbitRadius", JD orbitRadius)
+                  ,("scale", JD scale)
+                  ,("width", JD width)
+                  ,("children", JA $ map annotationToJSON subannotations)
+                  ]
+    planetJSON = planetToJSON planet
+
 convert = planetToJSON
 
 instance Show JSON where
