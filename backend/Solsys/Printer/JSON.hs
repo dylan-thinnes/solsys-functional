@@ -28,7 +28,7 @@ mergeObjects _       (JO o2) = JO o2
 mergeObjects _       _       = Null
 
 planetTypeToJSON :: PlanetType -> JSON
-planetTypeToJSON t = JS $ show t
+planetTypeToJSON = JI . toInteger . planetTypeToInt
 
 planetToJSON :: Planet -> JSON
 planetToJSON (Planet t cs) = 
