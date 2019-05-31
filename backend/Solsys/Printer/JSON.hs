@@ -11,6 +11,7 @@ data JSON = JO [(String, JSON)]
           | JA [JSON]
           | JS String
           | JI Integer
+          | JD Double
           | Null
 
 getAttr :: JSON -> String -> JSON
@@ -44,6 +45,7 @@ instance Show JSON where
                     showKv (k,v) = "\"" ++ k ++ "\":" ++ show v
     show (JA vs)  = "[" ++ (concat . intersperse "," . map show $ vs) ++ "]"
     show (JS s) = show s
+    show (JD f) = show f
     show (JI i) = show i
 
 data ScaleWidth = ScaleWidth
