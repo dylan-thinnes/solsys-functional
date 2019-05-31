@@ -48,7 +48,7 @@ annotationToJSON (OrbitRadius orbitRadius (ScaleWidth{..}))
                   ]
     planetJSON = planetToJSON planet
 
-convert = planetToJSON
+convert = annotationToJSON . annotate
 
 instance Show JSON where
     show (JO kvs) = "{" ++ (concat . intersperse "," . map showKv $ kvs) ++ "}"
