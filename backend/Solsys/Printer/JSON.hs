@@ -5,7 +5,7 @@ module Solsys.Printer.JSON (convert) where
 import Solsys.Planets
 
 import Data.Maybe (fromMaybe)
-import Data.List (intersperse)
+import Data.List (intersperse, nubBy)
 
 data JSON = JO [(String, JSON)]
           | JA [JSON]
@@ -20,6 +20,12 @@ getAttr _ _ = Null
 getIndex :: JSON -> Int -> JSON
 getIndex (JA xs) ii = xs !! ii
 getIndex _ _ = Null
+
+mergeObjects :: JSON -> JSON -> JSON
+mergeObjects (JO o1) (JO o2) = JO $ nubBy (\x y -> fst x == fst y) $ o1 ++ o2
+mergeObjects (JO o1) _       = JO o1
+mergeObjects _       (JO o2) = JO o2
+mergeObjects _       _       = Null
 
 planetTypeToJSON :: PlanetType -> JSON
 planetTypeToJSON t = JS $ show t
