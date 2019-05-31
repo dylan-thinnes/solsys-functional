@@ -23,7 +23,7 @@ planetTypeToShorthand Negative = "-"
 planetTypeToShorthand Neutral  = "0"
 
 toWhitespaceLines :: Planet -> [String]
-toWhitespaceLines (Planet t cs) = (planetTypeToShorthand t) : map ((" "++)) (concatMap toWhitespaceLines cs)
+toWhitespaceLines (Planet t cs) = (planetTypeToShorthand t) : map (' ':) (concatMap toWhitespaceLines cs)
 
 toWhitespace :: Planet -> String
 toWhitespace = init . unlines . toWhitespaceLines
