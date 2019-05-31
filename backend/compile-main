@@ -1,2 +1,7 @@
 #!/bin/bash
-stack ghc -- Main.hs -O2 -lgomp -lstdc++ -lmpfr -lgmp Primes/glue/msieve/glue.o Primes/msieve/libmsieve.a Primes/primecount/libprimecount.so Primes/glue/primecount/glue.o Primes/logint/li.o -optl-fexceptions
+OPTIMIZATIONS="-O3"
+MISC="-optl-fexceptions"
+MULTITHREADING="-threaded -with-rtsopts=-N4 -rtsopts=none"
+SYSTEMLIBS="-lgomp -lstdc++ -lmpfr -lgmp"
+LOCALLIBS="Primes/glue/msieve/glue.o Primes/msieve/libmsieve.a Primes/primecount/libprimecount.so Primes/glue/primecount/glue.o Primes/logint/li.o"
+stack ghc -- Main.hs $OPTIMIZATIONS $MISC $MULTITHREADING $SYSTEMLIBS $LOCALLIBS
