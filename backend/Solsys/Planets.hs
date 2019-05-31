@@ -1,4 +1,4 @@
-module Solsys.Planets (Planet (..), PlanetType (Positive, Negative, Neutral), rootPlanet, toPlanet) where
+module Solsys.Planets (Planet (..), PlanetType (Positive, Negative, Neutral), rootPlanet, toPlanet, planetTypeToInt) where
 
 import Primes.Factorization
 import Primes.Pix
@@ -9,6 +9,11 @@ import System.IO.Unsafe
 import Data.List
 
 data PlanetType = Positive | Negative | Neutral deriving Show
+
+planetTypeToInt :: PlanetType -> Int
+planetTypeToInt Positive = 1
+planetTypeToInt Neutral  = 0
+planetTypeToInt Negative = -1
 
 data Planet = Planet
     { planetType :: PlanetType
