@@ -26,6 +26,8 @@ cabal.project.local~
 backend/Primes/msieve*/
 backend/Primes/primecount*/
 backend/Main
+solsys-core/src/Primes/msieve*/
+solsys-core/src/Primes/primecount*/
 
 # Ignore Vim backup files
 *.swp
