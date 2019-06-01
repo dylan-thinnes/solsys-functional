@@ -1,7 +1,8 @@
 #!/bin/bash
+MAIN=${1:-Main.hs}
 OPTIMIZATIONS="-O3"
 MISC="-optl-fexceptions"
 MULTITHREADING="-threaded -with-rtsopts=-N4 -rtsopts=none"
 SYSTEMLIBS="-lgomp -lstdc++ -lmpfr -lgmp"
 LOCALLIBS="Primes/glue/msieve/glue.o Primes/msieve/libmsieve.a Primes/primecount/libprimecount.so Primes/glue/primecount/glue.o Primes/logint/li.o"
-stack ghc -- Main.hs $OPTIMIZATIONS $MISC $MULTITHREADING $SYSTEMLIBS $LOCALLIBS
+stack ghc -- $MAIN $OPTIMIZATIONS $MISC $MULTITHREADING $SYSTEMLIBS $LOCALLIBS
