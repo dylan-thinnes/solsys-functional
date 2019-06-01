@@ -32,6 +32,29 @@ library:
   source-dirs: src
 
 executables:
+  solsys-server:
+    main:                Server.hs
+    source-dirs:         app
+    ghc-options:
+    - -main-is Server
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    - ./src/Primes/glue/msieve/glue.o
+    - ./src/Primes/glue/primecount/glue.o
+    - ./src/Primes/logint/li.o
+    dependencies:
+    - solsys-core
+    extra-lib-dirs:
+    - ./src/Primes/msieve
+    - ./src/Primes/primecount
+    extra-libraries:
+    - gomp
+    - stdc++
+    - mpfr
+    - gmp
+    - msieve
+    - primecount
   solsys:
     main:                Main.hs
     source-dirs:         app

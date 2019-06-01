@@ -1,5 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
-module Main where
+module Server where
 
 import Network.Wai
 import Network.HTTP.Types
