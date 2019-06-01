@@ -7,7 +7,7 @@ if [ "$1" = "-h" ]; then
     echo "    -h: Print help screen."
     echo "    -r: Recompile primecount library."
 else
-    cd ./Primes
+    cd ./src/Primes
     if [ ! -d "./primecount" ] || [ "$1" = "-r" ]; then
         if [ -d "./primecount" ]; then rm -rf ./primecount; fi
 

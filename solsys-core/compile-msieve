@@ -7,7 +7,7 @@ if [ "$1" = "-h" ]; then
     echo "    -h: Print help screen."
     echo "    -r: Recompile msieve library."
 else
-    cd ./Primes
+    cd ./src/Primes
     if [ ! -d "./msieve" ] || [ "$1" = "-r" ]; then
         if [ -d "./msieve" ]; then rm -r ./msieve; fi
         tar -xzf ./msieve153_src.tar.gz

@@ -6,7 +6,7 @@ if [ "$1" = "-h" ]; then
     echo "Flags:"
     echo "    -h: Print help screen."
 else
-    cd ./Primes/logint
+    cd ./src/Primes/logint
     g++ li.cpp -lmpfr -c
     cd "../.."
 fi
