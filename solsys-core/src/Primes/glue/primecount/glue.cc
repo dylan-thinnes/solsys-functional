@@ -1,6 +1,7 @@
 #include <primecount.hpp>
 #include <stdio.h>
 #include <string>
+#include <cstring>
 
 extern "C" {
     char * pi_extern(char * input) {
