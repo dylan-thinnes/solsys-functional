@@ -12,7 +12,6 @@ import qualified Data.ByteString.Lazy.Char8 as BS
 
 import Solsys.Planets
 import qualified Solsys.Printer.JSON as J
-import qualified Solsys.Printer.Whitespace as W
 
 main :: IO ()
 main = run 3000 app
@@ -21,8 +20,9 @@ app :: Application
 app req respond = do
     putStrLn "Request received!"
     let number :: Maybe Integer
-        number = join $ fmap (readMaybe . unpack) 
-               $ join $ lookup "number" $ queryString req
+        number = do
+            result <- join $ lookup "number" $ queryString req
+            readMaybe . unpack $ result
     case number of 
         Nothing 
          -> do
