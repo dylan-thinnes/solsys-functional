@@ -5,7 +5,7 @@ module Primes.Factorization (factorize) where
 import Foreign.C.String
 import System.IO.Unsafe
 
-foreign import ccall "test.h factor_integer" factor_msieve :: CString -> CString
+foreign import ccall "factor_integer" factor_msieve :: CString -> CString
 
 factorize :: Integer -> [Integer]
 factorize i = unsafePerformIO $ do
