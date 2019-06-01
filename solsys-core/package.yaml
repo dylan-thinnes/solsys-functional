@@ -28,7 +28,7 @@ library:
   source-dirs: src
 
 executables:
-  solsys-core-exe:
+  solsys:
     main:                Main.hs
     source-dirs:         app
     ghc-options:
